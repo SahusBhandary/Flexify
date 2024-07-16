@@ -21,8 +21,7 @@ def displayNutrition(request):
     return render(request, 'nutrition.html', {"foodName": food["userFood"], "foodData": findNutrition(food["userFood"])})
 
 def index(response, id):
-    ls = Food.objects.get(id=id)
-    return HttpResponse("<h1>%s</h1>" % ls.name)
+    return HttpResponse("<h1>%s</h1>" % findNutrition(id))
 
 def default(request):
     return render(request, 'default.html', {"data": food})
