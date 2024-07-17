@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 from .forms import CreateChatResponse
 from openai import OpenAI
-import requests
+import requests, os, keyring
 OPENAI_API_KEY = "sk-proj-9HmSSHn6fwKlflozExIaT3BlbkFJE72fz6rIBf4yWwz3w4Vn"
 client = OpenAI(api_key=OPENAI_API_KEY)
 
