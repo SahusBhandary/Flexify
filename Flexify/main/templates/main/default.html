@@ -5,7 +5,13 @@
 </head>
 <body>
    <div>
-    {% block content %} This is the default page{% endblock %}
+    {% if user.is_authenticated %}
+        {% block content %} 
+            This is the default page
+        {% endblock %}
+    {% else %}
+        <p><a href="/login">Login Here</a></p>
+    {% endif %}
    </div> 
 </body>
 </html>

@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from register import views as v
 from workout import views as wv
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -26,4 +27,8 @@ urlpatterns = [
     path("", include('workout.urls')),
     path("", include('chatbot.urls')),
     path("", include('nutrition.urls')),
+    path("", include("django.contrib.auth.urls")),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 ]
+
+
