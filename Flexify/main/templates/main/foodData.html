@@ -1,17 +1,57 @@
-{% extends 'main/default.html' %}
+{% extends 'main/base.html' %}
 
 {% block title %} Food Page{% endblock %}
-
 
 <h1>{{data}}</h1>
 
 {% block content %} 
-Food Page 
-<form method="post" action="">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit">Submit</button>
-</form>
+<div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-success">
+        <a class="navbar-brand" href="#">Flexify</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Workout <span class="sr-only">(current)</span></a>
+              </li>
+          </ul>
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              User
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+              <a class="dropdown-item" href="">Settings</a>
+              <a class="dropdown-item text-warning" href="">Sign Out</a>
+            </div>
+          </div>
+          
+        </div>
+      </nav>
+</div>
+<div class="border border-dark bg-light container-fluid">
+    <div style="font-size: 100px;" class="row p-4 justify-content-center font-weight-bold">
+        Flexify Nutrition Tracker
+    </div>
+    <div style="height:28vh;padding-left:40vh;padding-right: 40vh;" class="row justify-content-center font-italic">
+        This tool is designed to provide you with essential information such as calorie content, macronutrients (proteins, fats, carbohydrates), vitamins, and minerals. Understanding the nutritional composition of your food is crucial for maintaining a balanced diet, managing weight, and ensuring overall health. It helps you make informed dietary choices, avoid deficiencies, and reduce the risk of chronic diseases like diabetes, heart disease, and obesity. By using our tool, you can take a proactive approach to your nutritional well-being, empowering you to live a healthier, more informed lifestyle.
+    </div>
+    <div style="height:35vh" class="p-5 row justify-content-center">
+        <form method="post" action="">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit" class="btn">Submit</button>
+        </form>
+    </div>
+</div>
+<div class="d-flex justify-content-center border">
+    © 2024 Flexify
+</div>
+
 {% endblock %}
 
 
