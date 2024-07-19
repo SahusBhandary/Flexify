@@ -1,2 +1,11 @@
 <h1>Workout Display</h1>
-{{name}}
+{% block content %}
+    <ul>
+        {% for workouts in workout_list %}
+            <li>{{workouts}}</li>
+        {% endfor %}
+    </ul>
+        
+{% endblock %}
+    
+        

@@ -3,11 +3,19 @@
 {% block title %} Create new Response {% endblock %}
 
 {% block content %} 
-Create New Response
+<h1>Choose Muscle Group</h1>
 <form method="post" action="/exercise/">
     {% csrf_token %}
     {{form.as_p}}
     <button type="submit", name="save">Create New</button>
 </form>
+
+{% if displayContent == True %}
+    <ul>
+        {% for workouts in workout_list %}
+            <li><input type="checkbox", value="clicked", name ="c{{workouts}}" checked>{{workouts}}</input></li>
+        {% endfor %}
+    </ul>
+{% endif %}
 
 {% endblock %}
