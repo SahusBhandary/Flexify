@@ -3,8 +3,79 @@
 {% block title %} Nutrition Facts {% endblock %}
 
 {% block content %} 
-<h1>{{foodName}}</h1>
-<h2>{{foodData}}</h2>
+<div style="background-color: green;" class="d-flex justify-content-center pt-3">
+    <h1 style="font-size: 125px;color: white;" class="text-capitalize font-weight-bold">{{foodName}}</h1>
+</div>
+<div style="background-color: green;" class="p-5 d-flex justify-content-center">
+    <table style="background-color: white;"class="table w-50 table-hover border-success">
+        <thead class="table-success">
+          <tr>
+            <th>#</th>
+            <th>Main Nutrients</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Protein</td>
+            <td>{{protein}}</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Fat</td>
+            <td>{{fat}}</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Carbohydrates</td>
+            <td>{{carbs}}</td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td>Water</td>
+            <td>{{water}}</td>
+          </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td>Iron</td>
+            <td>{{iron}}</td>
+          </tr>
+          <tr>
+            <th scope="row">6</th>
+            <td>Energy</td>
+            <td>{{energy}}</td>
+          </tr>
+          <tr>
+            <th scope="row">7</th>
+            <td>Caffeine</td>
+            <td>{{caffeine}}</td>
+          </tr>
+          <tr>
+            <th scope="row">8</th>
+            <td>Sugar</td>
+            <td>{{sugar}}</td>
+          </tr>
+          <tr>
+            <th scope="row">9</th>
+            <td>Fiber</td>
+            <td>{{fiber}}</td>
+          </tr>
+          <tr>
+            <th scope="row">10</th>
+            <td>Calcium</td>
+            <td>{{calcium}}</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+<div style="background-color: green;" class="d-flex justify-content-center pb-5">
+  Write a desc about this food. Good for bulk, good for maintain or good for cut? High in what? etc.
+</div>
+<div style="background-color: green; gap: 35px; padding-bottom: 5vh;" class="d-flex justify-content-center">
+  <button class="btn btn-danger">Remove From Diet</button>
+  <button class="btn btn-success">Add To Diet</button>
+</div>
 {% endblock %}
 
 
