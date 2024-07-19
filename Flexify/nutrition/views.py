@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from foodAPI import food, findNutrition
+from foodAPI import food, findNutrition, protein, fat, carbs, nutrients
 from .forms import CreateNewList
 
 # Create your views here.
@@ -17,7 +17,5 @@ def foodData(request):
         return render(request, 'main/foodData.html', {"form": form})
 
 def displayNutrition(request):
-    return render(request, 'main/nutrition.html', {"foodName": food["userFood"], "foodData": findNutrition(food["userFood"])})
+    return render(request, 'main/nutrition.html', {"foodName": food["userFood"], "foodData": findNutrition(food["userFood"]), "protein": nutrients["protein"], "fat": nutrients["fat"], "carbs": nutrients["carbs"], "water": nutrients["water"], "energy": nutrients["energy"], "caffeine": nutrients["caffeine"], "sugar": nutrients["sugar"], "fiber": nutrients["fiber"], "calcium": nutrients["calcium"], "iron": nutrients["iron"]})
 
-def index(response, id):
-    return HttpResponse("<h1>%s</h1>" % findNutrition(id))
