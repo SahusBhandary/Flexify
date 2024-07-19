@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'nutrition.apps.NutritionConfig',
 ]
 
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -80,12 +81,25 @@ WSGI_APPLICATION = "Flexify.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+     'default': {
+        'ENGINE': 'djongo',
+        'NAME': 'Flexify',
+        "CLIENT" :{
+        "host": "mongodb+srv://sahusbhandary04:chetha72@flexify.f2qg0oy.mongodb.net/?retryWrites=true&w=majority&appName=Flexify",
+            "username": "sahusbhandary04",      
+            "password": "chetha72"  
+        }
     }
-}
+
+ }
 
 
 # Password validation

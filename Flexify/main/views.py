@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from foodAPI import food, findNutrition
 from .forms import CreateNewList
-from .models import Food
 import requests
 
 # Create your views here.
