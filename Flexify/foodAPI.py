@@ -7,24 +7,15 @@ parameters = {
     "api_key": api_key 
 }
 
-food = {
+food = {}
 
-}
-
-protein = {}
-
-fat = {}
-
-carbs = {}
-
+# store important nutrients into here
 nutrients = {}
 
+# finds nutrition of specific food using USDA API
 def findNutrition(food):
     api = "https://api.nal.usda.gov/fdc/v1/foods/search?query=" + str(food) + ", raw"
     response = requests.get(api, params=parameters)
-
-    res = ""
-
     for i in range (0,len(response.json()["foods"][0]["foodNutrients"])):
         nutrientName = response.json()["foods"][0]["foodNutrients"][i]["nutrientName"]
         value = str(response.json()["foods"][0]["foodNutrients"][i]["value"])
@@ -50,6 +41,3 @@ def findNutrition(food):
         if nutrientName == "Iron, Fe":
             nutrients["iron"] = str(value) + str(unitName)
         
-
-
-    return response.json()["foods"][0]["foodNutrients"]

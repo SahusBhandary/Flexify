@@ -73,8 +73,14 @@
   Write a desc about this food. Good for bulk, good for maintain or good for cut? High in what? etc.
 </div>
 <div style="background-color: green; gap: 35px; padding-bottom: 5vh;" class="d-flex justify-content-center">
-  <button class="btn btn-danger">Remove From Diet</button>
-  <button class="btn btn-success">Add To Diet</button>
+  <form method="post" action="./removed">
+    {% csrf_token %}
+    <button class="btn btn-danger">Remove From Diet</button>
+  </form>
+  <form method="post" action="./added">
+    {% csrf_token %}
+    <button class="btn btn-success">Add To Diet</button>
+  </form>
 </div>
 {% endblock %}
 
