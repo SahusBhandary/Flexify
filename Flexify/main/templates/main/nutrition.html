@@ -3,12 +3,12 @@
 {% block title %} Nutrition Facts {% endblock %}
 
 {% block content %} 
-<div style="background-color: green;" class="d-flex justify-content-center pt-3">
-    <h1 style="font-size: 125px;color: white;" class="text-capitalize font-weight-bold">{{foodName}}</h1>
+<div style="background-color: #eee;" class="d-flex justify-content-center pt-3">
+    <h1 style="font-size: 125px;color: black;font-weight: 300;" class="text-capitalize">{{foodName}}</h1>
 </div>
-<div style="background-color: green;" class="p-5 d-flex justify-content-center">
+<div style="background-color: #eee;" class="p-5 d-flex justify-content-center">
     <table style="background-color: white;"class="table w-50 table-hover border-success">
-        <thead class="table-success">
+        <thead class="table-primary">
           <tr>
             <th>#</th>
             <th>Main Nutrients</th>
@@ -69,10 +69,10 @@
         </tbody>
       </table>
 </div>
-<div style="background-color: green;" class="d-flex justify-content-center pb-5">
+<div style="background-color: #eee;" class="d-flex justify-content-center pb-5">
   Write a desc about this food. Good for bulk, good for maintain or good for cut? High in what? etc.
 </div>
-<div style="background-color: green; gap: 35px; padding-bottom: 5vh;" class="d-flex justify-content-center">
+<div style="background-color: #eee; gap: 35px; padding-bottom: 5vh;" class="d-flex justify-content-center">
   <form method="post" action="./removed">
     {% csrf_token %}
     <button class="btn btn-danger">Remove From Diet</button>

@@ -9,18 +9,18 @@
     {% if user.is_authenticated %}
         {% block content %} 
         <div>
-            <nav class="navbar navbar-expand-lg navbar-light bg-success">
-                <a style="font-size: 25px;" class="navbar-brand font-weight-bolder" href="../">Flexify</a>
+            <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+                <a style="font-size: 25px;color: white;" class="navbar-brand font-weight-bolder" href="../">Flexify</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                      <a class="nav-link font-weight-bold" href="./foodData">Nutrition<span class="sr-only">(current)</span></a>
+                      <a style="color:white" class="nav-link font-weight-bold" href="./foodData">Nutrition<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link font-weight-bold" href="#">Workout<span class="sr-only">(current)</span></a>
+                        <a style="color:white" class="nav-link font-weight-bold" href="#">Workout<span class="sr-only">(current)</span></a>
                       </li>
                   </ul>
                   <div class="dropdown">
@@ -38,46 +38,48 @@
         </div>
         <div class="jumbotron">
             <h1 class="display-3">Welcome to Flexify!</h1>
-            <p class="lead">Write some description about flexify make it last a line or two aaasdhuadiushfaifhefhaufheofiahfoaifhjeoifajhofiejfoaieji sdkjasdh asd akjsdhsad hsad hasdkj asjd jkadjk ajksd ja jsdjkha dhkjsa kdjasj dkjsajdk ashd akjsdhajk sdhaskj haksjd haksjd.</p>
+            <p class="lead">Our app is your ultimate companion for achieving your health and fitness goals. Whether you're aiming to lose weight, build muscle, or simply improve your overall well-being, our comprehensive toolset has you covered.</p>
             <hr class="my-2">
-            <p>Some description here. make it around half a line asd as das</p>
+            <p>Start transforming your health today!</p>
             <p class="lead">
-              <a class="btn btn-primary btn-lg" href="#!" role="button">Some button to do smth</a>
+              <a class="btn btn-primary btn-lg" href="#!" role="button">My Workouts</a>
             </p>
         </div>
-        <div class="media">
-            <img class="d-flex mr-3" data-src="" alt="Generic placeholder image">
+        <div class="m-5">
+          <div style="height: 25vh;" class="media">
+            <img class="d-flex mr-3" src="" class="img-thumbnail" alt="Generic placeholder image">
             <div class="media-body">
-              <h5 class="mt-0">subsection 1</h5>
-              Boulders lined the side of the road foretelling what could come next. There are no heroes in a punk rock band. Boulders lined the side of the road foretelling what could come next. There are no heroes in a punk rock band.
+              <h5 class="mt-0">Diet Planner</h5>
+              Desc of diet planner here
             </div>
         </div>
         <br>
-        <div class="media">
+        <div style="height: 25vh;" class="media">
             <img class="d-flex mr-3" data-src="" alt="Generic placeholder image">
             <div class="media-body">
-              <h5 class="mt-0">subsection 2</h5>
-              Boulders lined the side of the road foretelling what could come next. There are no heroes in a punk rock band. Boulders lined the side of the road foretelling what could come next. There are no heroes in a punk rock band.
+              <h5 class="mt-0">Workout Tracker</h5>
+              Desc of workout tracker here
             </div>
         </div>
         <br>
-        <div class="media">
+        <div style="height: 25vh;" class="media">
             <img class="d-flex mr-3" src="" alt="Generic placeholder image">
             <div class="media-body">
-              <h5 class="mt-0">subsection 3</h5>
-              Boulders lined the side of the road foretelling what could come next. There are no heroes in a punk rock band. Boulders lined the side of the road foretelling what could come next. There are no heroes in a punk rock band.
+              <h5 class="mt-0">Nutrition Tracker</h5>
+              Desc of nutrition tracker here
             </div>
         </div>
         <br>
-        <div class="media">
+        <div style="height: 25vh;" class="media">
             <img class="d-flex mr-3" data-src="" alt="Generic placeholder image">
             <div class="media-body">
-              <h5 class="mt-0">subsection 4</h5>
-              Boulders lined the side of the road foretelling what could come next. There are no heroes in a punk rock band. Boulders lined the side of the road foretelling what could come next. There are no heroes in a punk rock band.
+              <h5 class="mt-0">More</h5>
+              More
             </div>
         </div>
         <br>
-        <div class="d-flex justify-content-center border">
+        </div>
+        <div style="color:white" class="d-flex justify-content-center border bg-primary">
             © 2024 Flexify
           </div>
         {% endblock %}
