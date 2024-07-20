@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 import requests
-from .forms import WorkoutResponse
-from workout.models import UserWorkouts
+from .forms import WorkoutResponse, CreateNewWorkout
+from workout.models import UserWorkoutHistory
 from django.contrib.auth.decorators import login_required
 
 """
@@ -14,16 +14,15 @@ from django.contrib.auth.decorators import login_required
 # Create your views here.
 def displayWorkout(request):
     full_list = request.session.get("listExercises", "")
-    return render(request, 'main/workoutDisplay.html', { "workout_list": full_list})
+    return render(request, 'main/createWorkout.html', {})
 
 def exercise_API_req(request):
     listExercises = []
     canDisplay = False
     if request.method == "POST":
         form = WorkoutResponse(request.POST)
-        username = request.user.username
-        newWorkout = UserWorkouts(user=username, exercise="", ifChosen=False)
-        newWorkout.save()
+        workoutNameForm = CreateNewWorkout(request.POST)
+        
 
         if form.is_valid():
             canDisplay = True
@@ -37,8 +36,15 @@ def exercise_API_req(request):
                 request.session["listExercises"] = listExercises
             else:
                 print("Error:", response.status_code, response.text)
+        if workoutNameForm.is_valid():
+            username = request.user.username
+            workoutName = workoutNameForm.cleaned_data["name"]
+            newWorkout = UserWorkoutHistory(user=username, workout_name=workoutName, workout_list=[])
+            newWorkout.save()
     else:
         canDisplay = False
         form = WorkoutResponse()
-    return render(request, "main/exercise.html", {"form":form, "displayContent":canDisplay, "workout_list": listExercises})
+        workoutNameForm = CreateNewWorkout()
+
+    return render(request, "main/exercise.html", {"form":form, "workoutFormName": workoutNameForm, "displayContent":canDisplay, "workout_list": listExercises})
 

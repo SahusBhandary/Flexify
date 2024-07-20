@@ -2,12 +2,19 @@
 
 {% block title %} Create new Response {% endblock %}
 
-{% block content %} 
+{% block content %}
+<h1>Enter A Workout Name</h1>
+<form method="post" action="/exercise/">
+    {% csrf_token %}
+    {{workoutNameForm.as_p}}
+    <button type="submit", name="save_workout">Enter</button>
+</form>
+
 <h1>Choose Muscle Group</h1>
 <form method="post" action="/exercise/">
     {% csrf_token %}
     {{form.as_p}}
-    <button type="submit", name="save">Create New</button>
+    <button type="submit", name="save_muscle">Create New</button>
 </form>
 
 {% if displayContent == True %}
