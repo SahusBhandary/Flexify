@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 import requests
-from .forms import WorkoutResponse, CreateNewWorkout
-from workout.models import UserWorkoutHistory
+from .forms import WorkoutResponse
+from workout.models import UserWorkoutHistory, Workouts
 from django.contrib.auth.decorators import login_required
 
 """
@@ -20,31 +20,34 @@ def exercise_API_req(request):
     listExercises = []
     canDisplay = False
     if request.method == "POST":
-        form = WorkoutResponse(request.POST)
-        workoutNameForm = CreateNewWorkout(request.POST)
-        
-
-        if form.is_valid():
-            canDisplay = True
-            muscle = form.cleaned_data["muscle_group"]
-            api_url = 'https://api.api-ninjas.com/v1/exercises?muscle={}'.format(muscle)
-            response = requests.get(api_url, headers={'X-Api-Key': 'Ynv9N0AgZh7W0SnR3TxOpA==k1ucv8udqf3FRxIf'})
-            if response.status_code == requests.codes.ok:
-                exercises = response.json()
-                for exercise in exercises:
-                    listExercises.append(exercise['name'])
-                request.session["listExercises"] = listExercises
-            else:
-                print("Error:", response.status_code, response.text)
-        if workoutNameForm.is_valid():
-            username = request.user.username
-            workoutName = workoutNameForm.cleaned_data["name"]
-            newWorkout = UserWorkoutHistory(user=username, workout_name=workoutName, workout_list=[])
-            newWorkout.save()
+        if 'save_muscle' in request.POST:
+            form = WorkoutResponse(request.POST)
+            if form.is_valid():
+                canDisplay = True
+                muscle = form.cleaned_data["muscle_group"]
+                api_url = 'https://api.api-ninjas.com/v1/exercises?muscle={}'.format(muscle)
+                response = requests.get(api_url, headers={'X-Api-Key': 'Ynv9N0AgZh7W0SnR3TxOpA==k1ucv8udqf3FRxIf'})
+                if response.status_code == requests.codes.ok:
+                    exercises = response.json()
+                    for exercise in exercises:
+                        listExercises.append(exercise['name'])
+                    request.session["listExercises"] = listExercises
+                else:
+                    print("Error:", response.status_code, response.text)
+                username = request.user.username
+                workoutName = form.cleaned_data["name"]
+                newWorkoutHistory = UserWorkoutHistory(user=username, workout_name=workoutName)
+                newWorkoutHistory.save()
+                workout = Workouts(name=muscle)
+                workout.save()
+                selected_workouts = []
+                for key, value in request.POST.items():
+                    if key.startswith('workout_'):
+                        selected_workouts.append(value)
+                print(selected_workouts)
     else:
         canDisplay = False
         form = WorkoutResponse()
-        workoutNameForm = CreateNewWorkout()
 
-    return render(request, "main/exercise.html", {"form":form, "workoutFormName": workoutNameForm, "displayContent":canDisplay, "workout_list": listExercises})
+    return render(request, "main/exercise.html", {"form":form, "displayContent":canDisplay, "workout_list": listExercises})
 

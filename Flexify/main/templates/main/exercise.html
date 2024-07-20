@@ -3,14 +3,7 @@
 {% block title %} Create new Response {% endblock %}
 
 {% block content %}
-<h1>Enter A Workout Name</h1>
-<form method="post" action="/exercise/">
-    {% csrf_token %}
-    {{workoutNameForm.as_p}}
-    <button type="submit", name="save_workout">Enter</button>
-</form>
-
-<h1>Choose Muscle Group</h1>
+<h1>Create A New Workout</h1>
 <form method="post" action="/exercise/">
     {% csrf_token %}
     {{form.as_p}}
@@ -20,7 +13,7 @@
 {% if displayContent == True %}
     <ul>
         {% for workouts in workout_list %}
-            <li><input type="checkbox", value="clicked", name ="c{{workouts}}" checked>{{workouts}}</input></li>
+            <li><input type="checkbox", value="clicked", name ="workout_{{ forloop.counter }}", value="{{ workout }}">{{workouts}}</input></li>
         {% endfor %}
     </ul>
 {% endif %}

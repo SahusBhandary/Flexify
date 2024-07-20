@@ -20,8 +20,6 @@ class WorkoutResponse(forms.Form):
         ("triceps", "Triceps"),
         
     ]
-
-    muscle_group = forms.ChoiceField(choices=CHOICES)
-
-class CreateNewWorkout(forms.Form):
     name = forms.CharField(label="Workout Name", max_length=200)
+    muscle_group = forms.ChoiceField(choices=CHOICES)
+    
