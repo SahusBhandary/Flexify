@@ -12,4 +12,3 @@ def default(request):
 def home (response):
     return render(response, "main/home.html", {"name": "test"})
 
-
