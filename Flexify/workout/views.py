@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 import requests
 from .forms import WorkoutResponse
 from workout.models import UserWorkoutHistory, Workouts
+from register.models import User
 from django.contrib.auth.decorators import login_required
 
 """
@@ -35,16 +36,20 @@ def exercise_API_req(request):
                 else:
                     print("Error:", response.status_code, response.text)
                 username = request.user.username
+                print(username)
                 workoutName = form.cleaned_data["name"]
-                newWorkoutHistory = UserWorkoutHistory(user=username, workout_name=workoutName)
-                newWorkoutHistory.save()
-                workout = Workouts(name=muscle)
+                user_model = User.objects.get(username=username)
+                workout_history = UserWorkoutHistory.objects.get(user_account_id=user_model.id)
+                workout_history.workout_name = workoutName
+                workout_history.save()
+                print(workout_history.workout_name)
+                workout = Workouts(userworkouthistory=workout_history,name=muscle)
                 workout.save()
-                selected_workouts = []
-                for key, value in request.POST.items():
-                    if key.startswith('workout_'):
-                        selected_workouts.append(value)
-                print(selected_workouts)
+                # selected_workouts = []
+                # for key, value in request.POST.items():
+                #     if key.startswith('workout_'):
+                #         selected_workouts.append(value)
+                # print(selected_workouts)
     else:
         canDisplay = False
         form = WorkoutResponse()

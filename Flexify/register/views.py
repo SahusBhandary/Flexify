@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .forms import RegisterForm
+from workout.models import UserWorkoutHistory
 from .models import User
 
 # Create your views here.
@@ -10,6 +11,8 @@ def register(response):
             name = form.cleaned_data.get('username')
             new_user = User(username=name)
             new_user.save()
+            new_workout_history = UserWorkoutHistory(user_account=new_user, workout_name="")
+            new_workout_history.save()
             form.save()
     else:
         form = RegisterForm()

@@ -1,9 +1,10 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
+from register.models import User
 # pip install psycopg2 
 # Create your models here.
 class UserWorkoutHistory(models.Model):
-    user = models.CharField(max_length=200)
+    user_account = models.ForeignKey(User, on_delete=models.CASCADE)
     workout_name = models.CharField(max_length=200)
 
     def __str__(self):
