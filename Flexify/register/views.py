@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .forms import RegisterForm
-from workout.models import UserWorkoutHistory
-from .models import User
+from main.models import User
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 def register(response):

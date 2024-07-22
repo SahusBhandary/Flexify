@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from foodAPI import food, findNutrition, nutrients
-from .forms import CreateNewList
-from main.models import Food
+from .forms import CreateNewList, DietForm
+from main.models import Diet, User
 
 # Create your views here.
 def foodData(request):
@@ -27,3 +27,15 @@ def added(request):
 
 def removed(request):
     return render(request, 'main/removed.html')
+
+def diets(request):
+    if request.method == "POST":
+        form = DietForm(request.POST)
+
+        if form.is_valid():
+            new_diet_name = form.cleaned_data.get('name')
+            User.objects.get(username=request.user.username).diet_set.create(name=new_diet_name)
+            return HttpResponse(User.objects.get(username=request.user.username).diet_set.all())
+    else: 
+        form = DietForm()
+        return render(request,'main/diets.html', {"form": form})
