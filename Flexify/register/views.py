@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .forms import RegisterForm
-from .models import User
+from main.models import User
 
 # Create your views here.
 def register(response):
