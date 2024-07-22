@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
-from register.models import User
+from main.models import User
 # pip install psycopg2 
 # Create your models here.
 class UserWorkoutHistory(models.Model):

@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 import requests
 from .forms import WorkoutResponse
 from workout.models import UserWorkoutHistory, Workouts
-from register.models import User
+from main.models import User
 from django.contrib.auth.decorators import login_required
 
 """

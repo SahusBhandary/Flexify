@@ -29,6 +29,7 @@ urlpatterns = [
     path("", include('nutrition.urls')),
     path("", include("django.contrib.auth.urls")),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path("", include('register.urls')),
 ]
 
 
