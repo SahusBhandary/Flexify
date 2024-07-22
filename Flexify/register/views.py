@@ -7,7 +7,8 @@ def register(response):
     if response.method == "POST":
         form = RegisterForm(response.POST)
         if form.is_valid():
-            new_user = User(username= "ben")
+            name = form.cleaned_data.get('username')
+            new_user = User(username=name)
             new_user.save()
             form.save()
     else:
