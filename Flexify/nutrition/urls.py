@@ -6,5 +6,6 @@ urlpatterns = [
     path('foodData/nutrition', views.displayNutrition),
     path('foodData/added', views.added),
     path('foodData/removed', views.removed),
-    path('diets/', views.diets)
+    path('diets/', views.diets),
+    path('diets/<str:id>/', views.displaySpecificDiet)
 ]

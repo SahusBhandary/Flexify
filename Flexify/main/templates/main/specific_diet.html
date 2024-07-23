@@ -1,0 +1,18 @@
+{% extends "main/base.html" %}
+
+{% block title %} {{diet_name}} {% endblock %}
+
+{% block content %} 
+{{diet_name}}
+<br>
+<form method="post" action="">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit", name="save">Add</button>
+</form>
+{% for food in food_list %}
+    <h1>{{food}}</h1>
+    <br>
+{% endfor %}
+
+{% endblock %}
