@@ -40,4 +40,4 @@ def findNutrition(food):
             nutrients["calcium"] = str(value) + str(unitName)
         if nutrientName == "Iron, Fe":
             nutrients["iron"] = str(value) + str(unitName)
-        
+    return (nutrients["protein"])

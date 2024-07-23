@@ -9,5 +9,11 @@
     {{form.as_p}}
     <button type="submit", name="save">Create Diet</button>
 </form>
+<br>
+<h1>My diets:</h1>
+{% for diet in diets_list %}
+    <a href="./{{diet}}">{{diet}}</a>
+    <br>
+{% endfor %}
 
 {% endblock %}

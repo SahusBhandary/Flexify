@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from foodAPI import food, findNutrition, nutrients
-from .forms import CreateNewList, DietForm
+from .forms import CreateNewList, DietForm, FoodForm
 from main.models import Diet, User
 
 # Create your views here.
@@ -35,7 +35,18 @@ def diets(request):
         if form.is_valid():
             new_diet_name = form.cleaned_data.get('name')
             User.objects.get(username=request.user.username).diet_set.create(name=new_diet_name)
-            return HttpResponse(User.objects.get(username=request.user.username).diet_set.all())
+            return render(request,'main/diets.html', {"form": form, "diets_list": User.objects.get(username=request.user.username).diet_set.all()})
     else: 
         form = DietForm()
-        return render(request,'main/diets.html', {"form": form})
+        return render(request,'main/diets.html', {"form": form, "diets_list": User.objects.get(username=request.user.username).diet_set.all()})
+    
+def displaySpecificDiet(request, id):
+    if request.method == "POST":
+        form = FoodForm(request.POST)
+
+        if form.is_valid():
+            name_of_food = form.cleaned_data.get('name')
+            User.objects.get(username=request.user.username).diet_set.all().get(name=id).fooditem_set.create(text=name_of_food)
+
+    form = FoodForm()
+    return render(request, 'main/specific_diet.html', {"form": form, "diet_name": id, "food_list": User.objects.get(username=request.user.username).diet_set.all().get(name=id).fooditem_set.all()})
