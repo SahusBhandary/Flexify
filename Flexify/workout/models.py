@@ -12,7 +12,8 @@ class UserWorkoutHistory(models.Model):
     
 class Workouts(models.Model):
     userworkouthistory = models.ForeignKey(UserWorkoutHistory, on_delete=models.CASCADE)
-    name = models.CharField(max_length=200)
+    workout_name = models.CharField(max_length=200)
+    exercise_name = models.CharField(max_length=200)
 
     def __str__(self):
-        return self.name
+        return self.workout_name

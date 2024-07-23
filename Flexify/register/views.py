@@ -13,8 +13,6 @@ def register(response):
             name = form.cleaned_data.get('username')
             new_user = User(username=name)
             new_user.save()
-            new_workout_history = UserWorkoutHistory(user_account=new_user, workout_name="")
-            new_workout_history.save()
             form.save()
             return HttpResponseRedirect("/login")
     else:

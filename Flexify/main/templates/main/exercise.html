@@ -11,18 +11,28 @@
         <form method="post" action="/exercise/">
             {% csrf_token %}
             {{form.as_p}}
-            <button type="submit", name="save_muscle">Create New</button>
+            {% if displayError == True %}
+                <div stlye="color: red;">
+                    Error, Workout Name Already Exists, Choose New Name!
+                </div>
+            {% endif %}
+            <button type="submit", name="save_muscle">Generate Exercises</button>
+            <button type="submit", name="add_items">Add Selected Exercises</button>
+            {% if displayContent == True %}
+                <div class="d-flex justify-content-center p-4">
+                    <ul>
+                        {% for workouts in workout_list %}
+                            <li>
+                                <input type="checkbox", value="clicked", name ="workout_{{ forloop.counter }}", value="{{ workout }}", id="workout_{{ forloop.counter }}">{{ workouts }}</input>
+                                <label for="workout_{{ forloop.counter }}">{{ workout }}</label>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
         </form>
     </div>
-    {% if displayContent == True %}
-        <div class="d-flex justify-content-center p-4">
-            <ul>
-                {% for workouts in workout_list %}
-                    <li><input type="checkbox", value="clicked", name ="workout_{{ forloop.counter }}", value="{{ workout }}">{{workouts}}</input></li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
+    
 </div>
 
 {% endblock %}
