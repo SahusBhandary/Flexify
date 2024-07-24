@@ -7,17 +7,33 @@
     <div class="d-flex justify-content-center p-4">
         <h1 style="font-weight: 300; font-size: 100px;">Create A New Workout</h1>
     </div>
+    <div style="display: flex; justify-content: center;">
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            Current Workout:
+            <ul>
+                {% for e in selectedExercises %}
+                    <li>{{e}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
     <div class="d-flex justify-content-center p-4">
         <form method="post" action="/exercise/">
             {% csrf_token %}
             {{form.as_p}}
             {% if displayError == True %}
-                <div stlye="color: red;">
+                <div style="color: red;">
                     Error, Workout Name Already Exists, Choose New Name!
+                </div>
+            {% endif %}
+            {% if displayComplete == True %}
+                <div>
+                    Workout Created! <button name="view_workout">View here</button>
                 </div>
             {% endif %}
             <button type="submit", name="save_muscle">Generate Exercises</button>
             <button type="submit", name="add_items">Add Selected Exercises</button>
+            <button type="submit", name="submit_items">Create Workout</button>
             {% if displayContent == True %}
                 <div class="d-flex justify-content-center p-4">
                     <ul>

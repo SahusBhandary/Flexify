@@ -1,16 +1,60 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 import requests
 from .forms import WorkoutResponse
 from workout.models import UserWorkoutHistory, Workouts
 from main.models import User
 from django.contrib.auth.decorators import login_required
-from Workout import Workout
+from main.views import home
+
 
 # Create your views here.
-def displayWorkout(request):
-    full_list = request.session.get("listExercises", "")
-    return render(request, 'main/createWorkout.html', {})
+def redirectCreateWorkout(request):
+    username = request.user.username
+    return redirect(displayWorkout, username)
+
+def displayWorkout(request, username):
+    username = request.user.username
+    workoutSet = []
+    workoutCounter = 0
+    workout_set = Workouts.objects.filter(workout_name__contains = (username + '#'))
+    for workouts in workout_set:
+        db_workout_name = decode_workout(workouts.workout_name)
+        if db_workout_name in workoutSet:
+            continue
+        else:
+            workoutSet.append(db_workout_name)
+    
+
+    if request.method == "POST":
+        for workouts in workout_set:
+            print(request.POST)
+            db_workout_name = decode_workout(workouts.workout_name)
+            print(db_workout_name)
+            if db_workout_name in request.POST:
+                print("redirect")
+                return redirect(displayUserSpecificWorkout, username, db_workout_name)
+    return render(request, 'main/createWorkout.html', {"workoutCounter": workoutCounter, "workoutSet": workoutSet,})
+
+"""
+- Display a specific workout for a user using custom URLS
+- Need to set up custom URL
+- Set up function that takes in a username and workout name
+- extract username and workout name
+- display workout on one page
+"""
+
+def displayUserSpecificWorkout(request, username, workoutName):
+    workout_set = Workouts.objects.filter(workout_name__contains = (username + '#'))
+    full_set = []
+    for workouts in workout_set:
+        db_workout_name = decode_workout(workouts.workout_name)
+        if db_workout_name == workoutName:
+            full_set.append(workouts.exercise_name)
+            print(workouts.exercise_name)
+    return render(request, "main/viewWorkout.html", {"full_set":full_set, "workout_name": workoutName})
+
 
 def generate_list(muscle):
     listExercises = []
@@ -72,9 +116,13 @@ def decode_workout(encryptedString):
     return decodedString
 
 def exercise_API_req(request):
+    if 'selectedExercises' not in request.session:
+        request.session['selectedExercises'] = []
+    selectedExercises = request.session['selectedExercises']
     listExercises = []
     canDisplay = False
     displayError = False
+    displayComplete = False
     username = request.user.username
     muscle = ""
     if request.method == "POST":
@@ -94,24 +142,33 @@ def exercise_API_req(request):
                     displayError = True
                 else:
                     displayError = False
-                    selectedExercises = []
-                    print(muscle)
                     listExercises = generate_list(muscle)
                     for i, e in enumerate(listExercises, start=1):
                         checkbox_name = 'workout_' + str(i)
                         if checkbox_name in request.POST:
                             selectedExercises.append(e)
-                    
-                    new_workout = UserWorkoutHistory(user_account_id=user_model.username, workout_name=workoutName)
-                    new_workout.save()
-                    for e in selectedExercises:
-                        new_exercise = Workouts(workout_name=encrypt_workout(username, workoutName),exercise_name=e)
-                        new_exercise.save()
+                    request.session['selectedExercises'] = selectedExercises
+        elif 'submit_items' in request.POST:
+            form = WorkoutResponse(request.POST)
+            if form.is_valid():
+                displayComplete = True
+                workoutName = form.cleaned_data["name"]
+                user_model = User.objects.get(username=username)
+                new_workout = UserWorkoutHistory(user_account_id=user_model.username, workout_name=workoutName)
+                new_workout.save()
+                for e in selectedExercises:
+                    new_exercise = Workouts(workout_name=encrypt_workout(username, workoutName),exercise_name=e)
+                    new_exercise.save()
+                request.session['selectedExercises'] = []
+        elif 'view_workout' in request.POST:
+            form = WorkoutResponse(request.POST)
+            if form.is_valid():
+                workoutName = form.cleaned_data["name"]
+                return redirect(displayUserSpecificWorkout, username=username, workoutName=workoutName)
     else:
         canDisplay = False
         form = WorkoutResponse()
 
-    
-    
-    return render(request, "main/exercise.html", {"form":form, "displayContent":canDisplay, "workout_list": listExercises, "displayError": displayError})
+    return render(request, "main/exercise.html", {"form":form, "displayContent":canDisplay, "workout_list": listExercises, "displayError": displayError, 
+                                                  "selectedExercises": selectedExercises, "displayComplete": displayComplete})
 

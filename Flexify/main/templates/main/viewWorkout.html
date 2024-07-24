@@ -1,0 +1,17 @@
+{% extends "main/base.html" %}
+
+{% block title %} {{workout_name}} {% endblock %}
+
+{% block content %}
+
+<h1>{{workout_name}}</h1>
+{% if full_set %}
+    <ul>
+        {% for exercise in full_set %}
+            <li>{{exercise}}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Error, no exercises found</p>
+{% endif %}
+{% endblock %}

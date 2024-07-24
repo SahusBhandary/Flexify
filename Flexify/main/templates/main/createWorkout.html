@@ -2,6 +2,16 @@
 <h1>Workout Display</h1>
 {% block content %}
     <h1>Workout History</h1>
+    <form method="post" action="">
+        {% csrf_token %}
+        {{form.as_p}}
+        {% for workouts in workoutSet %}
+            <ul>
+                <button name="{{workouts}}">{{workouts}}</button>
+            </ul>
+        {% endfor %}
+    </form>
+    
     <a href="/exercise">
         <button >Create New Workout</button>
     </a>
