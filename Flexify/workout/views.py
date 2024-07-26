@@ -6,10 +6,11 @@ from .forms import WorkoutResponse
 from workout.models import UserWorkoutHistory, Workouts
 from main.models import User
 from django.contrib.auth.decorators import login_required
-from main.views import home
+from main.views import default
 
 
 # Create your views here.
+
 def redirectCreateWorkout(request):
     username = request.user.username
     return redirect(displayWorkout, username)
